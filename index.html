@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html ng-app="brazilKickOff">
+<html>
     <head>
-        <title>BrazilKickOffApp2014</title>
+        <title>Fifa Kick Off 2014</title>
 
         <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
         <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,17 +10,17 @@
         <meta name="msapplication-tap-highlight" content="no">
 
 
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>   
+        <script src="js/modernizr.custom.js"></script>
         <script src="phonegap.js"></script>
         <script src="cdv-plugin-fb-connect.js"></script>
         <script src="facebook-js-sdk.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
-        <script src="js/app.js"></script>
-        <script src="js/controllers.js"></script>
-        <script src="js/services.js"></script>
-        <script src="js/angular-easyfb.js"></script>
-		
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/plugins/SocialSharing.js"></script>
+        <script src="GAPlugin.js"></script>
     </head>
-    <body ng-controller="brazilFbLogin">
+    <body>
         <div id="st-container" class="st-container">
             <nav class="st-menu st-effect-13" id="menu-13">
              
@@ -30,9 +30,8 @@
                     <div class="st-content-inner">
                      
                         <div id="home" class="content center-align">
-                            
-                           <div class="reg">
-                                <div id="data"></div>
+                            <div class="reg">
+                                <div id="data">loading ...</div>
                                 <div style="height: 30px;"></div>
                                 
                                 <div style="height: 30px;"></div>
@@ -40,82 +39,71 @@
                                     <p class="color-blue">
                                         Connect with Facebook to join in.
                                     </p>
-                                    <img src="images/fb_login.png" width="206" height="49" ng-click="ezfbAsyncInit(); init=true; login();" />
-									<p id="fb-data" >{{ user.name }}</p>
+                                    <img src="images/fb_login.png" width="206" height="49" onclick="login();" />
                                 </div>
                                 <div style="height: 30px;"></div>
+
+                                
+
+                            </div>       
+                            <div id="formie" style="display: none;">
+                                
+                                <form id="formm">
+                                    <p class="color-green errorMSG" style="display:none;font-size: 10px;text-align: right;">Oops! Please check your details again.</p>
+                                    <input type="text" placeholder="Full Name*" name="name" id="name" class="text" tabindex="1"/>
+                                    <input type="email" placeholder="Email ID*" name="email" id="email" class="text" tabindex="2" />
+                                    <input type="hidden" name="dob" id="dob" class="text" />
+                                    <input type="hidden" name="gender" id="gender" class="text" />
+                                    <input type="text" name="city" id="city" placeholder="City*" class="text" value="Mumbai" disabled="disabled"/>
+                                    <input type="text" name="state" id="state" placeholder="State*" class="text"  value="Maharashtra" disabled="disabled"/> 
+                                    <input type="text" name="pin" id="pin" placeholder="Zip Code*" class="text" tabindex="3"/>
+                                    <input type="text" name="phn" id="phn" placeholder="Mobile Number*" class="text" tabindex="4" />
+                                    <input type="hidden" name="prof_id" id="prof_id" />
+                                    <textarea name="address" id="address"  class="text" placeholder="Full Address*" tabindex="5"></textarea>
+                                    <input type="image" src="images/submit.jpg" id="submitie" tabindex="6" />
+                                </form>
                             </div>
                             <div style="height: 60px;"></div>
                            
-							
+
                         </div><!--home ends here-->
                     </div><!--st-content-inner ends here-->
                 </div><!--.st-content ends here-->
             </div>
         </div><!--st-container ends here-->
-   
+        <script src="js/classie.js"></script>
+        <script src="js/sidebarEffects.js"></script>
         <script>
-            /*function login() {
-				$("#fb-data").html("CLicked Loop");
+                                      
+        </script>
+        <script>
+            function login() {
                 FB.login(
                         function(response) {
 
                             FB.api('/me', function(response) {
                                 if (response.error) {
-									$("#fb-data").html("Inside If error Loop");
                                     //alert(JSON.stringify(response.error));
-									} 
-									else {
+                                } else {
                                     window.localStorage.setItem("id", response.id);
                                     window.localStorage.setItem("name", response.name);
                                     window.localStorage.setItem("email", response.email);
+                                    window.localStorage.setItem("birthday", response.birthday);
                                     window.localStorage.setItem("gender", response.gender);
-									$("#fb-data").html("Inside Else Loop");
-                                    loginstatus();
+                                    checkie();
 
                                 }
                             });
                         },
-                        {scope: "email,publish_actions"}
-                )};
-				function loginstatus() {
-					$("#fb-data").html("Inside Login status start");
-					FB.getLoginStatus(function(response) {
-						if (response.status === 'connected') 
-						{
-							var uid = response.authResponse.userID;
-							var accessToken = response.authResponse.accessToken;
-							$("#fb-data").html(response.status);
-						} 
-						else if (response.status === 'not_authorized') 
-						{
-							$("#fb-data").html(response.status);
-						} 
-						else 
-						{
-							$("#fb-data").html("not logged in");
-						}
-					});
-				}
-				
-				document.addEventListener('deviceready', function() {
-					try {
-						FB.init({appId: "261787254027306", nativeInterface: CDV.FB, useCachedDialogs: false});
-						document.getElementById('data').innerHTML = "";
-					} catch (e) {
-						   alert(e);
-					}
-					if (window.localStorage.getItem("id") != null && window.localStorage.getItem("name") != null && window.localStorage.getItem("email") != null && window.localStorage.getItem("birthday") != null) {
-                    
-					}
+                        {scope: "email,user_birthday,publish_actions"}
+                );
+            }
 
-				}, false);
-*/
-            /*document.addEventListener('deviceready', function() {
+            document.addEventListener('deviceready', function() {
                 gaPlugin = window.plugins.gaPlugin;
                 gaPlugin.init(nativePluginResultHandler, nativePluginErrorHandler, "UA-4652074-30", 10);
                 try {
-                    FB.init({appId: "261787254027306", nativeInterface: CDV.FB, useCachedDialogs: false});
+                    FB.init({appId: "622986024390860", nativeInterface: CDV.FB, useCachedDialogs: false});
                     document.getElementById('data').innerHTML = "";
                 } catch (e) {
                     //   alert(e);
@@ -173,9 +161,9 @@
                             $("#logginn").hide();
                         }
                     }
-                })};*/
+                });
 
-            
+            }
         </script>
     </body>
 </html>
