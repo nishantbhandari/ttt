@@ -10,4 +10,4 @@
     <content src="index.html" />
     <access origin="*" />
 </widget>
-<gap:splash src="splash.png" gap:platform="ios" width="320" height="480" />
+<gap:splash src="splash.png" width="320" height="580" />
