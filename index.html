@@ -1,44 +1,181 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-<html>
+<html ng-app="brazilKickOff">
     <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <title>Hello World</title>
+        <title>BrazilKickOffApp2014</title>
+
+        <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="msapplication-tap-highlight" content="no">
+
+
+        <script src="phonegap.js"></script>
+        <script src="cdv-plugin-fb-connect.js"></script>
+        <script src="facebook-js-sdk.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/services.js"></script>
+        <script src="js/angular-easyfb.js"></script>
+		
     </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+    <body ng-controller="brazilFbLogin">
+        <div id="st-container" class="st-container">
+            <nav class="st-menu st-effect-13" id="menu-13">
+             
+            </nav>
+            <div class="st-pusher">
+                <div class="st-content">
+                    <div class="st-content-inner">
+                     
+                        <div id="home" class="content center-align">
+                            
+                           <div class="reg">
+                                <div id="data"></div>
+                                <div style="height: 30px;"></div>
+                                
+                                <div style="height: 30px;"></div>
+                                <div id="logginn">
+                                    <p class="color-blue">
+                                        Connect with Facebook to join in.
+                                    </p>
+                                    <img src="images/fb_login.png" width="206" height="49" ng-click="ezfbAsyncInit(); init=true; login();" />
+									<p id="fb-data" >{{ user.name }}</p>
+                                </div>
+                                <div style="height: 30px;"></div>
+                            </div>
+                            <div style="height: 60px;"></div>
+                           
+							
+                        </div><!--home ends here-->
+                    </div><!--st-content-inner ends here-->
+                </div><!--.st-content ends here-->
             </div>
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
+        </div><!--st-container ends here-->
+   
+        <script>
+            /*function login() {
+				$("#fb-data").html("CLicked Loop");
+                FB.login(
+                        function(response) {
+
+                            FB.api('/me', function(response) {
+                                if (response.error) {
+									$("#fb-data").html("Inside If error Loop");
+                                    //alert(JSON.stringify(response.error));
+									} 
+									else {
+                                    window.localStorage.setItem("id", response.id);
+                                    window.localStorage.setItem("name", response.name);
+                                    window.localStorage.setItem("email", response.email);
+                                    window.localStorage.setItem("gender", response.gender);
+									$("#fb-data").html("Inside Else Loop");
+                                    loginstatus();
+
+                                }
+                            });
+                        },
+                        {scope: "email,publish_actions"}
+                )};
+				function loginstatus() {
+					$("#fb-data").html("Inside Login status start");
+					FB.getLoginStatus(function(response) {
+						if (response.status === 'connected') 
+						{
+							var uid = response.authResponse.userID;
+							var accessToken = response.authResponse.accessToken;
+							$("#fb-data").html(response.status);
+						} 
+						else if (response.status === 'not_authorized') 
+						{
+							$("#fb-data").html(response.status);
+						} 
+						else 
+						{
+							$("#fb-data").html("not logged in");
+						}
+					});
+				}
+				
+				document.addEventListener('deviceready', function() {
+					try {
+						FB.init({appId: "261787254027306", nativeInterface: CDV.FB, useCachedDialogs: false});
+						document.getElementById('data').innerHTML = "";
+					} catch (e) {
+						   alert(e);
+					}
+					if (window.localStorage.getItem("id") != null && window.localStorage.getItem("name") != null && window.localStorage.getItem("email") != null && window.localStorage.getItem("birthday") != null) {
+                    
+					}
+
+				}, false);
+*/
+            /*document.addEventListener('deviceready', function() {
+                gaPlugin = window.plugins.gaPlugin;
+                gaPlugin.init(nativePluginResultHandler, nativePluginErrorHandler, "UA-4652074-30", 10);
+                try {
+                    FB.init({appId: "261787254027306", nativeInterface: CDV.FB, useCachedDialogs: false});
+                    document.getElementById('data').innerHTML = "";
+                } catch (e) {
+                    //   alert(e);
+                }
+                if (window.localStorage.getItem("id") != null && window.localStorage.getItem("name") != null && window.localStorage.getItem("email") != null && window.localStorage.getItem("birthday") != null) {
+                    switchie();
+                }
+
+            }, false);
+            function nativePluginResultHandler(result) {
+                //alert('nativePluginResultHandler - '+result);
+                console.log('nativePluginResultHandler: ' + result);
+
+            }
+
+            function nativePluginErrorHandler(error) {
+                //alert('nativePluginErrorHandler - '+error);
+                console.log('nativePluginErrorHandler: ' + error);
+            }
+            function switchie() {
+                $("#prof_id").val(window.localStorage.getItem("id"));
+                $("#name").val(window.localStorage.getItem("name"));
+                $("#email").val(window.localStorage.getItem("email"));
+                $("#dob").val(window.localStorage.getItem("birthday"));
+                $("#gender").val(window.localStorage.getItem("gender"));
+                $("#logginn").hide();
+                
+            }
+
+            function  checkie() {
+                $.ajax({
+                    url: "http://www.gooddeedmarathon.com/check.php",
+                    type: "POST",
+                    data: {prof_id: window.localStorage.getItem("id")},
+                    success: function(data) {
+
+                        if (data == 0) {
+                            switchie();
+                            $.ajax({
+                                url: "http://www.gooddeedmarathon.com/submitAndroid.php",
+                                type: "POST",
+                                data: $("#formm").serialize(),
+                                success: function(data) {
+                                    var cont = data.split("==");
+                                    window.localStorage.setItem("city", cont[0]);
+                                    window.localStorage.setItem("state", cont[1]);
+                                    window.localStorage.setItem("phone", cont[2]);
+                                    window.localStorage.setItem("pin", cont[3]);
+                                    window.localStorage.setItem("address", cont[4]);
+                                    window.location.href = "thank-you.html";
+                                }
+                            });
+                        } else {
+
+                            $("#logginn").hide();
+                        }
+                    }
+                })};*/
+
+            
         </script>
     </body>
 </html>
